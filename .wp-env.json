@@ -1,0 +1,23 @@
+{
+    "plugins": [
+      "./custom-openai-scheduler/"
+    ],
+    "env": {
+      "development": {
+        "config": {
+            "WP_DEBUG_DISPLAY": true,
+            "WP_SITEURL": "https://crispy-carnival-g5g949w6px5hwx4v-8080.app.github.dev",
+            "WP_HOME": "https://crispy-carnival-g5g949w6px5hwx4v-8080.app.github.dev/"
+        },
+          "port": 8080
+      },
+      "tests": {
+        "config": {
+            "WP_DEBUG_DISPLAY": true,
+            "WP_SITEURL": "https://crispy-carnival-g5g949w6px5hwx4v-8081.app.github.dev",
+            "WP_HOME": "https://crispy-carnival-g5g949w6px5hwx4v-8081.app.github.dev/"
+        },
+        "port": 8081
+      }
+  }
+  }

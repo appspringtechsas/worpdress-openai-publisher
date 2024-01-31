@@ -37,8 +37,8 @@ function custom_openai_scheduler_generate_and_publish() {
         // Check if the post was created successfully
         if ($post_id) {
             // Add the post to the menu
-            $menu_name = 'Blog'; // Replace with the desired menu name
-            $menu_item_id = custom_openai_add_to_menu($post_id, $menu_name);
+            //$menu_name = 'Blog'; // Replace with the desired menu name
+            //$menu_item_id = custom_openai_add_to_menu($post_id, $menu_name);
 
             // Move the topic to the executed topics list
             custom_openai_move_to_executed_topics($selected_topic);

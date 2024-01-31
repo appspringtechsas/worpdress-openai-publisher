@@ -11,17 +11,22 @@ function custom_openai_generate_content($topic) {
     }
 
     // Your OpenAI API endpoint
-    //$openai_endpoint = 'https://api.openai.com/v1/engines/gpt-4.0-turbo/completions';
-    $openai_endpoint = "https://localhost/dashboard/";
+    $openai_endpoint = 'https://api.openai.com/v1/chat/completions';
+    //$openai_endpoint = "https://localhost/dashboard/";
 
     // Your input prompt to generate both title and body
-    $prompt = "Generate a blog post with title and body on the topic of: $topic";
-
+    $messages = [
+        [
+            "role" => "user",
+            "content" => "Generate a blog post with title and body on the topic of: $topic"
+        ]
+    ];
+    
     // Construct the request body
     $request_body = json_encode([
-        'model' => 'gpt-4.0-turbo',
-        'prompt' => $prompt,
-        'max_tokens' => 500,
+        'model' => 'gpt-4',
+        'messages' => $messages,
+        'max_tokens' => 2500,
     ]);
 
     if ($debug_mode) {
@@ -33,14 +38,14 @@ function custom_openai_generate_content($topic) {
         echo '</pre>';
     }
 
-    // Make a request to the OpenAI API
+    /*// Make a request to the OpenAI API
     $response = wp_safe_remote_post($openai_endpoint, [
         'body' => $request_body,
         'headers' => [
             'Content-Type' => 'application/json',
             'Authorization' => 'Bearer ' . $api_key,
         ],
-        'timeout' => 15, // Set your desired timeout value in seconds
+        'timeout' => 30, // Set your desired timeout value in seconds
     ]);
 
     $response_code = wp_remote_retrieve_response_code($response);
@@ -68,16 +73,25 @@ function custom_openai_generate_content($topic) {
         }
         return null;
     }
-
+*/
     // Extract the generated content from the response
-    $decoded_response = json_decode(wp_remote_retrieve_body($response), true);
-    $generated_content = $decoded_response['choices'][0]['text'];
+    //$decoded_response = json_decode(wp_remote_retrieve_body($response), true);
+    
+    $decoded_response = [
+        "choices" => [
+            ["message" => ["content" => "Title: Unleashing the Power of Salesforce Commerce Cloud for 
+            Business Success\nIf there is ever a time in history when eCommerce is vital for business success"]]
+        ]
+    ];
+    $generated_content = $decoded_response['choices'][0]['message']["content"];
 
     if ($debug_mode) {
         // Show debug information
         echo '<strong>Response:</strong><br>';
         echo '<pre>';
         print_r($decoded_response);
+        echo "\ncontent is:\n";
+        print_r($generated_content);
         echo '</pre>';
     }
 
